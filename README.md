@@ -2,6 +2,8 @@
 
 Replacement feet for a folding clothes drying rack. They stop a robot vacuum from getting stuck on the rack's legs.
 
+They were designed for an older Sini drying rack whose legs are T-shaped, like the current Sini Ted: each leg stands on a horizontal steel tube with a plastic cap on each end. The model is parametric, so it can be adjusted for other racks with similar tube feet.
+
 ![Foot guard model](images/model.png)
 
 <!-- Photo of the installed feet goes here -->
