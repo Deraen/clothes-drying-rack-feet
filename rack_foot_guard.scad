@@ -30,6 +30,8 @@ end_rise = 5;
 gap_at_tip = 3;
 // Extra room under the tube after the socket, so small measurement errors don't lift the tube out of the socket
 under_clearance = 2;
+// Sideways widening of the open channel towards the open end, per side (degrees). Gives room if the leg sits at a slight sideways angle to the block
+channel_flare = 1;
 
 /* [Block shape] */
 // Overall length (mm); 60 is enough for a test print of the socket fit
@@ -65,6 +67,8 @@ z_socket_end = z_tip + socket_len * sin(tilt);
 // Where the tube reaches the level middle part
 rise_end = x_tip + end_seg_len;
 z_far = z_tip + end_rise;
+// Extra channel half-width at x from the sideways flare (starts at the socket)
+function flare_at(x) = max(0, x - socket_end) * tan(channel_flare);
 
 H  = height;
 BW = base_w;
@@ -75,6 +79,8 @@ assert(length >= socket_end + end_wall, "length must be longer than the socket")
 assert(H >= z_socket_end + bore_d / 2 * sqrt(2) + 2, "Block is too low to roof over the socket");
 assert(H >= z_far + bore_d / 2, "Block is lower than the top of the raised tube");
 assert(TW >= bore_d + 4, "Top is too narrow for the tube channel");
+assert(TW - bore_d - 2 * flare_at(length - min(end_chamfer, length / 4)) - 2 * entry_chamfer >= 4,
+       "channel_flare is too big: the channel walls get too thin near the open end");
 
 module profile2d(bw, tw, h) {
     // Rounded trapezoid; bottom edge kept sharp so it sits flat
@@ -114,14 +120,26 @@ module body() {
 }
 
 // Thin cross-section of the channel at x, with the tube axis at z:
-// round bottom (lowered by drop) and open straight up to the top.
+// round bottom (lowered by drop), widened sideways by the flare at x,
+// and open straight up to the top.
 module channel_slice(x, z, drop) {
+    w = flare_at(x);
     translate([x, 0, 0]) rotate([0, 90, 0]) linear_extrude(eps)
         hull() {
-            translate([-z, 0]) circle(d = bore_d);
-            translate([-(z - drop), 0]) circle(d = bore_d);
-            translate([-(H + 1), -bore_d / 2]) square([1, bore_d]);
+            for (y = [-w, w]) {
+                translate([-z, y]) circle(d = bore_d);
+                translate([-(z - drop), y]) circle(d = bore_d);
+            }
+            translate([-(H + 1), -bore_d / 2 - w]) square([1, bore_d + 2 * w]);
         }
+}
+
+// Thin cross-section of the chamfer along the channel's top edges at x
+module chamfer_slice(x) {
+    hw = bore_d / 2 + flare_at(x);
+    translate([x, 0, H + eps]) rotate([90, 0, 90]) linear_extrude(eps)
+        polygon([[-hw - entry_chamfer, 0], [hw + entry_chamfer, 0],
+                 [hw, -entry_chamfer], [-hw, -entry_chamfer]]);
 }
 
 module cutouts() {
@@ -143,10 +161,10 @@ module cutouts() {
     }
 
     // Chamfer along the top edges of the channel
-    translate([socket_end, 0, H + eps])
-        rotate([90, 0, 90]) linear_extrude(length)
-            polygon([[-bore_d/2 - entry_chamfer, 0], [bore_d/2 + entry_chamfer, 0],
-                     [bore_d/2, -entry_chamfer], [-bore_d/2, -entry_chamfer]]);
+    hull() {
+        chamfer_slice(socket_end);
+        chamfer_slice(length + 1);
+    }
 }
 
 difference() {
