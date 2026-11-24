@@ -16,6 +16,8 @@ On this rack the tube is 16 mm thick. The last 70 mm at each end is straight but
 
 The foot is a 170 mm long, 35 mm tall block that replaces the plastic end cap. It's too tall for the robot to climb, so its bumper hits the block and the robot turns away like it would at a wall. The ends are sloped so the robot slides off instead of catching on a corner.
 
+The block is long on purpose. With only a short block at each end of the tube, the robot could still drive up to the bare tube between them and try to climb it there. At 170 mm, the blocks cover most of the tube, and the bare stretch left in the middle is too short for the robot to get into.
+
 The tube end slides into a closed socket at one end of the block. The socket is tilted to match the tube's angled end section. After the socket, the block has an open channel on top that follows the tube's rise. That way the tube sits in the block without needing to match its exact shape.
 
 ![Closed socket end of the block](images/model-socket.png)
@@ -50,7 +52,7 @@ Open the `.scad` file in [OpenSCAD](https://openscad.org/) and use **Window → 
 | `end_seg_len` | 70 | Length of the tube's straight angled end section (mm) |
 | `end_rise` | 5 | How much higher the tube's middle is than its tip (mm) |
 | `gap_at_tip` | 3 | Plastic under the tube tip; raises the rack by this much (mm) |
-| `length` | 170 | Block length (mm) |
+| `length` | 170 | Block length (mm); long enough that the robot can't reach the bare tube between the two feet |
 | `height` | 35 | Block height (mm); keep it above ~30 so the robot's bumper hits it |
 | `base_w` / `top_w` | 40 / 30 | Block width at the floor and at the top (mm) |
 
