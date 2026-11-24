@@ -69,3 +69,7 @@ openscad -o rack_foot_test_60mm.stl -D length=60 rack_foot_guard.scad
 - **Bed size:** the 170 mm block fits a 180 × 180 mm bed (such as a Prusa Mini). Put the long side along X and skip the brim.
 
 Felt pads stick fine to the flat bottom if you want to protect the floor.
+
+## License
+
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). You can share and modify these files for any purpose, as long as you give credit. See [LICENSE](LICENSE).
