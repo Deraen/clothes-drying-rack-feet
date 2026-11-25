@@ -17,7 +17,7 @@ tube_d = 16.0;
 // Extra diameter for the tube; loose enough that the cap turns freely on it
 clearance = 0.55;
 // How far the tube goes into the cap (mm)
-socket_len = 15;
+socket_len = 20;
 
 /* [Wire] */
 // Wire diameter (mm)
