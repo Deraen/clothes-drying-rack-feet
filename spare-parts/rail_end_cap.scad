@@ -14,16 +14,16 @@
 /* [Tube] */
 // Measured outer diameter of the tube (mm)
 tube_d = 16.0;
-// Extra diameter for fit (0.2 fit best in the fit test)
-clearance = 0.2;
+// Extra diameter for the tube; loose enough that the cap turns freely on it
+clearance = 0.55;
 // How far the tube goes into the cap (mm)
 socket_len = 15;
 
 /* [Wire] */
 // Wire diameter (mm)
 wire_d = 4.0;
-// Extra diameter for the wire hole, so the wire can pivot freely
-wire_clearance = 0.5;
+// Extra diameter for the wire hole; small for a tight fit, open it up with a 4 mm drill if needed
+wire_clearance = 0.1;
 // Distance from the socket bottom to the centre of the wire hole (mm). Set a bit less than the measured tube end to wire distance (9 mm), so the tube stops short of the socket bottom and the hole can line up with the wire
 wire_offset = 7;
 

@@ -24,13 +24,9 @@ The tube end slides into a closed socket at one end of the block. The socket is 
 
 ![Closed socket end of the block](images/model-socket.png)
 
-## Rail end caps
+## Spare parts
 
-The rack's top rails are the same 16 mm tube, and the wire frames of the folding wings hook into the plastic caps on their ends. Those caps crack over time, so `rail_end_cap.scad` is a replacement.
-
-The cap is a sleeve over the tube end, with a hole straight across it for the 4 mm wire to pivot in. The wire hole sits a little closer to the tube end than the wire does on the rack, so the tube stops about 2 mm short of the bottom of the socket and the hole can line up with the wire. The cap can be turned on the tube to point the hole whichever way the wire needs.
-
-![Rail end cap model](images/rail-end-cap.png)
+The [spare-parts](spare-parts/) folder has replacements for two other plastic parts on the same rack that tend to break: the end caps on the top rails and the pivot rings that hold the rails to the stands. See its own README.
 
 ## Files
 
@@ -40,7 +36,6 @@ The cap is a sleeve over the tube end, with a hole straight across it for the 4 
 | `rack_foot_guard.stl` | The full 170 mm foot, ready to print |
 | `rack_foot_test_60mm.stl` | A 60 mm version for testing the socket fit and angle |
 | `tube_fit_test.scad` / `.stl` | Six thin rings for finding the right hole size |
-| `rail_end_cap.scad` / `.stl` | End cap for the top rails, where the wing wires hook in |
 
 The STLs are made with the default settings, which match the rack these were designed for. If your rack is different, change the settings in the `.scad` file and make new STLs.
 
@@ -68,22 +63,11 @@ Open the `.scad` file in [OpenSCAD](https://openscad.org/) and use **Window → 
 | `height` | 35 | Block height (mm); keep it above ~30 so the robot's bumper hits it |
 | `base_w` / `top_w` | 40 / 30 | Block width at the floor and at the top (mm) |
 
-The rail end cap has its own settings:
-
-| Setting | Default | Meaning |
-| --- | --- | --- |
-| `tube_d` / `clearance` | 16.0 / 0.2 | Same as for the foot (mm) |
-| `socket_len` | 15 | How far the tube goes into the cap (mm) |
-| `wire_d` / `wire_clearance` | 4.0 / 0.5 | Wire diameter and the extra room in its hole (mm) |
-| `wire_offset` | 7 | From the bottom of the socket to the centre of the wire hole (mm); set it a little less than the tube end to wire distance on the rack (about 9 mm here) |
-| `end_wall` | 4 | Plastic past the wire hole (mm) |
-
 To make the STLs from the command line:
 
 ```bash
 openscad -o rack_foot_guard.stl rack_foot_guard.scad
 openscad -o rack_foot_test_60mm.stl -D length=60 rack_foot_guard.scad
-openscad -o rail_end_cap.stl rail_end_cap.scad
 ```
 
 ## Printing
@@ -92,7 +76,6 @@ openscad -o rail_end_cap.stl rail_end_cap.scad
 - **Orientation:** flat side down. No supports are needed: the socket and the test rings are teardrop-shaped so their tops print without support.
 - **Walls and infill:** 3–4 walls so the channel sides can take bumps from the robot. 15–20 % infill is plenty.
 - **Bed size:** the 170 mm block fits a 180 × 180 mm bed (such as a Prusa Mini). Put the long side along X and skip the brim.
-- **Rail end caps:** print them standing on the open end, so the layers wrap around the tube and the sleeve doesn't split. No supports are needed. Use 5 or more walls; the walls are thin enough that this makes the cap solid.
 
 Felt pads stick fine to the flat bottom if you want to protect the floor.
 
